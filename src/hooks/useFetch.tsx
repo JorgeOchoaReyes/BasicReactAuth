@@ -1,8 +1,9 @@
-import React, {useState, useEffect} from 'react'; 
+import React, {useState, useEffect, useRef} from 'react'; 
 import { MessageType } from '../types/types';
 import {token} from "../constants/constants";
 
 export const useFetch = (url: string, operation: string, body?: Object) => {
+    const skipFirstMount = useRef(true);
     const [isLoading, setIsLoading] = useState(false);
     const [apiData, setApiData] = useState<MessageType[] | null>(null);
     const [serverError, setServerError] = useState(null);

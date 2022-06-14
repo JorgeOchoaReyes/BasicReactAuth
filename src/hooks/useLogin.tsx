@@ -1,4 +1,3 @@
-import { setServers } from 'dns';
 import React, {useState, useEffect, useRef} from 'react'; 
 
 export const useLogin = (url:string, body: Object) => {
