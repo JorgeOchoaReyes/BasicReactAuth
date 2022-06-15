@@ -18,27 +18,21 @@ const Error = styled.div`
 export const Login: React.FC<LoginProps> = () => {
     const [username, setUsername] = React.useState("");
     const [password, setPassword] = React.useState("");
-    const [userinput, setUserinput] = React.useState({});
     const failedAuth = React.useRef(false);  
-    const {login, serverError, isLoading} = useLogin(`${process.env.REACT_APP_API_URL}api-token-auth/`, userinput); 
+    const tokenAuth = token(); 
+    const {login, serverError, isLoading, loginFetch} = useLogin(`${process.env.REACT_APP_API_URL}api-token-auth/`); 
     const router = useNavigate();
 
     const handleLogin = () => {
-        setUserinput({username: username, password: password});
+        loginFetch({username: username, password: password}); 
     }
     if(login === false && serverError) failedAuth.current = true; 
-    useEffect(() => {
-        if(token !== null && token !== undefined && token.length !== 0) router('/home'); 
-        if(login === true) {
-            failedAuth.current = false; 
-            router('/home')
-        };
-    }, [login])
 
+    console.log(token)
     useEffect(() => {
-        if(token !== null && token !== undefined && token.length !== 0) router('/home'); 
-    }, []);
-
+        if(tokenAuth !== null && tokenAuth !== undefined && tokenAuth.length !== 0) router('/home');
+        if(login === true && tokenAuth !== undefined && tokenAuth?.length !== 0 && tokenAuth !== null) router("/home")
+    }, [login]);
 
     return (
         <Center parent={true}> 

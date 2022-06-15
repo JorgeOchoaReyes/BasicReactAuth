@@ -6,7 +6,7 @@ export const useCompose = (url: string, operation: string, body?: Object) => {
     const [isLoading, setIsLoading] = useState(false);
     const [apiData, setApiData] = useState<MessageType[] | null>(null);
     const [serverError, setServerError] = useState(null);
-
+    const tokenAuth = token(); 
     const fetchData = async () => {
       setIsLoading(true);
       try {
@@ -15,7 +15,7 @@ export const useCompose = (url: string, operation: string, body?: Object) => {
             headers: {
               'Accept': 'application/json',
               'Content-Type': 'application/json',
-              "Authorization": `Token ${token}`
+              "Authorization": `Token ${tokenAuth}`
             },
           });
         const data = await res.json();

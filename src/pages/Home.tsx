@@ -1,11 +1,14 @@
 import React, { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import {Compose} from '../components/Compose'; 
 import {Inbox} from '../components/Inbox'; 
 import { Loading } from '../components/Loading';
 import {Sent} from '../components/Sent'; 
+import { token } from '../constants/constants';
 import { useFetch } from '../hooks/useFetch';
 import { MessageType } from '../types/types';
+import {useIsAuth} from '../hooks/useisAuth'; 
 
 interface HomeProps {
 
@@ -17,12 +20,19 @@ const GridBox = styled.div`
 `
 
 export const Home: React.FC<HomeProps> = ({}) => {
-    const {apiData, serverError, isLoading} = useFetch(`${process.env.REACT_APP_API_URL}messages/`, "GET"); 
-    console.log(process.env.REACT_APP_API_URL)
+    const {apiData, serverError, isLoading, fetchData} = useFetch(`${process.env.REACT_APP_API_URL}messages/`, "GET");
+    const tokenAuth = token(); 
+    const { isAuth } = useIsAuth(); 
+  
+    useEffect(() => {
+        isAuth(); 
+        fetchData(); 
+    }, [])
+
     return (
     <>
         {
-            isLoading ? 
+            isLoading || tokenAuth === null ? 
             <Loading /> 
             :
             <GridBox>
