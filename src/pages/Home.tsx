@@ -1,13 +1,11 @@
 import React, { useEffect } from 'react'
-import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import {Compose} from '../components/Compose'; 
 import {Inbox} from '../components/Inbox'; 
 import { Loading } from '../components/Loading';
 import {Sent} from '../components/Sent'; 
-import { token } from '../constants/constants';
+import { token } from '../util/constants';
 import { useFetch } from '../hooks/useFetch';
-import { MessageType } from '../types/types';
 import {useIsAuth} from '../hooks/useisAuth'; 
 
 interface HomeProps {
@@ -20,30 +18,38 @@ const GridBox = styled.div`
 `
 
 export const Home: React.FC<HomeProps> = ({}) => {
-    const {apiData, serverError, isLoading, fetchData} = useFetch(`${process.env.REACT_APP_API_URL}messages/`, "GET");
+    const {apiData: dataInbox, 
+           serverError: errorInbox,
+           isLoading: loadingInbox,
+           fetchData: fetchInbox} = useFetch(`${process.env.REACT_APP_API_URL}messages/`);
+    const {apiData: dataSent, 
+           serverError: errorSent, 
+           isLoading: loadingSent, 
+           fetchData: fetchSent} = useFetch(`${process.env.REACT_APP_API_URL}messages/sent/`);
     const tokenAuth = token(); 
     const { isAuth } = useIsAuth(); 
   
     useEffect(() => {
         isAuth(); 
-        fetchData(); 
+        fetchInbox(); 
+        fetchSent(); 
     }, [])
 
     return (
     <>
         {
-            isLoading || tokenAuth === null ? 
+            loadingInbox || loadingSent || tokenAuth === null ? 
             <Loading /> 
             :
             <GridBox>
                 <div> 
-                    <Sent data={apiData?.filter((message: MessageType) => message.sender === 'test' )}/>
+                    <Sent data={dataSent!}/>
                 </div>
                 <div> 
                     <Compose /> 
                 </div>
                 <div> 
-                    <Inbox data={apiData?.filter((message: MessageType) => message.sender !== 'test' )} /> 
+                    <Inbox data={dataInbox!} /> 
                 </div>
             </GridBox>
         }
