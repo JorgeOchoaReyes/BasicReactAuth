@@ -1,5 +1,6 @@
 import React from 'react'
 import { Navbar, Container} from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 interface NavbarProps {
@@ -11,16 +12,14 @@ const NavbarContainer = styled.div`
 `
 
 export const NavigationBar: React.FC<NavbarProps> = ({}) => {
+  const route = useNavigate(); 
     return (
     <>
        <Navbar bg='dark'>
           <Container>
-            <Navbar.Brand style={{color: 'white'}}>Messages</Navbar.Brand>
+            <Navbar.Brand onClick={() => route("/")} style={{color: 'white', cursor: 'pointer'}}>Messages</Navbar.Brand>
             <Navbar.Toggle />
             <Navbar.Collapse className="justify-content-end">
-              <Navbar.Text style={{color: 'white'}}>
-                Signed in as: Mark Otto
-              </Navbar.Text>
             </Navbar.Collapse>
           </Container>
         </Navbar>

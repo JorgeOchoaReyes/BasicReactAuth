@@ -25,7 +25,7 @@ let res = [
 
 export const Inbox: React.FC<InboxProps> = ({data}) => {
     return (
-        <> 
+        <div style={{overflowY: 'scroll', maxHeight: '100vh'}}> 
             <Title> Inbox </Title>
             { data && data.map((message: MessageType) => {
                     return <Message 
@@ -40,6 +40,6 @@ export const Inbox: React.FC<InboxProps> = ({data}) => {
                 /> 
                 })
             }
-        </>
+        </div>
     );
 }

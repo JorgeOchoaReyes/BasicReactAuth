@@ -1,6 +1,4 @@
-import React, {useState, useEffect, useRef} from 'react'; 
-import { MessageType } from '../types/types';
-import {token} from "../constants/constants";
+import {token} from "../util/constants";
 import { useNavigate } from 'react-router-dom';
 
 export const useIsAuth = () => {

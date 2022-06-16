@@ -17,21 +17,24 @@ interface SentProps {
 
 export const Sent: React.FC<SentProps> = ({data}) => {
     return (
-        <> 
-            <Title>Sent</Title>
-            { data && data.map((message: MessageType) => {
-                    return <Message 
-                    key={`#sent${message.id}`}
-                    id={message.id}
-                    title={message.title}
-                    body={message.body}
-                    read={message.read}
-                    sent={message.sent}
-                    sender={message.sender}
-                    receiver={message.receiver}
-                /> 
-                })
-            }
+        <>
+        <Title>Sent</Title>
+            <div style={{overflowY: 'scroll', maxHeight: '100vh'}}> 
+        
+                { data && data.map((message: MessageType) => {
+                        return <Message 
+                        key={`#sent${message.id}`}
+                        id={message.id}
+                        title={message.title}
+                        body={message.body}
+                        read={message.read}
+                        sent={message.sent}
+                        sender={message.sender}
+                        receiver={message.receiver}
+                    /> 
+                    })
+                }
+            </div>
         </>
     );
 }
