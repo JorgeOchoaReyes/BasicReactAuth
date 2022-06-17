@@ -7,6 +7,7 @@ import {Sent} from '../components/Sent';
 import { token } from '../util/constants';
 import { useFetch } from '../hooks/useFetch';
 import {useIsAuth} from '../hooks/useisAuth'; 
+import { ErrorMessage } from '../components/UI';
 
 interface HomeProps {
 
@@ -39,8 +40,8 @@ export const Home: React.FC<HomeProps> = ({}) => {
     <>
         {
             loadingInbox || loadingSent || tokenAuth === null ? 
-            <Loading /> 
-            :
+            <Loading />  :
+            errorInbox || errorSent ? <ErrorMessage> Errors: {errorInbox?.detail} and {errorSent?.detail} </ErrorMessage> :
             <GridBox>
                 <div> 
                     <Sent data={dataSent!}/>

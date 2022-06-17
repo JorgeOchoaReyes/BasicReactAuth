@@ -26,3 +26,7 @@ export const Center = styled.div<Pick<CenterProps, 'parent'>>`
     justify-content: center;
     flex-direction: ${(p: CenterProps) => p.parent ? "row" : "column"}; 
 `
+
+export const ErrorMessage = styled.div`
+    color: red; 
+`

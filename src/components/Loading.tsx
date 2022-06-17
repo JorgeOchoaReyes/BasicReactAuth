@@ -1,16 +1,10 @@
 import React from 'react'
 import { Spinner } from 'react-bootstrap';
-import styled from 'styled-components';
 import {Center} from './UI'; 
 
-interface CenterProps {
-    parent: Boolean; 
-}
 
 interface LoadingProps {
 }
-
-
 
 export const Loading: React.FC<LoadingProps> = ({}) => {
     return (

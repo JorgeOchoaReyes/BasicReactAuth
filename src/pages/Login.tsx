@@ -28,7 +28,6 @@ export const Login: React.FC<LoginProps> = () => {
     }
     if(login === false && serverError) failedAuth.current = true; 
 
-    console.log(token)
     useEffect(() => {
         if(tokenAuth !== null && tokenAuth !== undefined && tokenAuth.length !== 0) router('/home');
         if(login === true && tokenAuth !== undefined && tokenAuth?.length !== 0 && tokenAuth !== null) router("/home")

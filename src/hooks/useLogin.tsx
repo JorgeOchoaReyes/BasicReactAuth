@@ -1,9 +1,9 @@
-import React, {useState, useEffect, useRef} from 'react'; 
+import React from 'react'; 
 
 export const useLogin = (url:string) => {
-    const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [login, setLogin] = useState<boolean | null>(null);
-    const [serverError, setServerError] = useState(null);
+    const [isLoading, setIsLoading] = React.useState<boolean>(false);
+    const [login, setLogin] = React.useState<boolean | null>(null);
+    const [serverError, setServerError] = React.useState(null);
     
     const loginFetch = async (body: Object) => {
       setIsLoading(true);
