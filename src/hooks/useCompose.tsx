@@ -1,13 +1,14 @@
-import React, {useState, useEffect, useRef} from 'react'; 
-import { MessageType } from '../types/types';
+import React from 'react'; 
+import { ComposeErrorType, MutationResultsType } from '../types/types';
 import {token} from "../util/constants";
 
 export const useCompose = (url: string) => {
-    const [isLoading, setIsLoading] = useState(false);
-    const [apiData, setApiData] = useState<MessageType[] | null>(null);
-    const [serverError, setServerError] = useState(null);
-    const tokenAuth = token(); 
+    const [isLoading, setIsLoading] = React.useState(false);
+    const [apiData, setApiData] = React.useState<MutationResultsType | null>(null);
+    const [serverError, setServerError] = React.useState<ComposeErrorType | null>(null);
+  
     const createMessage = async (body: any) => {
+      const tokenAuth = token();
       setIsLoading(true);
       try {
         const res = await fetch(url, {
@@ -21,6 +22,7 @@ export const useCompose = (url: string) => {
           });
         const data = await res.json();
         setApiData(data);
+        if(data.errors) setServerError(data)
         setIsLoading(false);
       } catch (error: any) {
         setServerError(error);
