@@ -6,6 +6,7 @@ import { Loading } from '../../components/Loading';
 import { useSingleMessage } from '../../hooks/useSingleMessage';
 import {Center} from '../../components/UI'; 
 import { useDelete } from '../../hooks/useDelete';
+import { useIsAuth } from '../../hooks/useisAuth';
 
 interface MessageDetailsProps {
 
@@ -19,7 +20,11 @@ export const MessageDetails: React.FC<MessageDetailsProps> = ({}) => {
            isLoading: deleteLoading, 
            serverError: deleteError, 
            deleteMessage } = useDelete(`${process.env.REACT_APP_API_URL}messages/${id}/`)
+    const { isAuth } = useIsAuth(); 
 
+    React.useEffect(() => {
+      isAuth(); 
+    }, [])
 
     return (
     <Center parent={true}>
